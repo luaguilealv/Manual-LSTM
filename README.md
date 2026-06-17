@@ -2,22 +2,16 @@
 
 A transparent, from-scratch implementation of a Long Short-Term Memory (LSTM) recurrent neural network in MATLAB. This repository bypasses high-level deep learning wrappers (such as `trainnet` or `trainNetwork`) to program the core mathematical mechanisms explicitly—including initialization, manual gate activation loops, forward propagation, and Backpropagation Through Time (BPTT).
 
----
-
-## 📚 Mathematical Foundation & References
+## Mathematical Foundation & References
 
 The algorithmic framework and matrix-based indexing conventions utilized in this code are directly adapted from:
 
 * **Primary Reference:** Higham, C. F., & Higham, D. J. (2018). *Deep Learning: An Introduction for Applied Mathematicians*. arXiv preprint arXiv:1801.05894. [Available here](https://arxiv.org/abs/1801.05894).
 * **BPTT Gradient Calculus Reference:** [Christina Kouridi - Backpropagation in an LSTM cell](https://christinakouridi.github.io/posts/backprop-lstm/).
 
----
-
 ## Overview
 
 The goal is to provide a clear, mathematically rigorous look into the inner workings of sequential deep learning architectures. By establishing manual matrix operations, it eliminates automated differentiation abstraction to explicitly trace how gradients and states evolve across variable-length temporal sequences.
-
----
 
 ## Architecture & File Breakdown
 
@@ -33,8 +27,6 @@ The code combines a self-contained environment processing time-series sequences 
 * **`makeSequences.m`:** Data pre-processing utility transforming raw multi-feature data matrices into a collection of sliding windows formatted into cell structures of shape `[d x T]`.
 * **`sigmoid.m`:** Base mathematical implementation of the gate activation function:
   $$\sigma(z) = \frac{1}{1 + e^{-z}}$$
-
----
 
 ## Algorithmic Framework
 
@@ -63,8 +55,6 @@ $$\delta c_t = \delta c_{\text{next}} \odot f_{\text{next}} + \delta h_t \odot o
 Gradients are accumulated across all time horizons for parameters ($W$, $U$, $b$) before parameter scaling is performed via Stochastic Gradient Descent:
 $$\theta = \theta - \eta \cdot d\theta$$
 
----
-
 ## Hyperparameters and Settings
 
 The standard tracking configuration deployed in the routine contains:
@@ -74,8 +64,6 @@ The standard tracking configuration deployed in the routine contains:
 * **Learning Rate ($\eta$):** 0.001
 * **Optimization Iterations ($N_{\text{iter}}$):** 200,000 SGD steps
 * **Evaluation Frequency ($evalEvery$):** 2,000 steps (saves memory and minimizes runtime computational drag)
-
----
 
 ## Getting Started
 
